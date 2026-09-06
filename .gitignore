@@ -1,0 +1,10 @@
+# ROOT analysis products
+output/
+*.root
+*_C.so
+*_C.d
+*_C_ACLiC_dict_rdict.pcm
+
+# Local editor and operating-system files
+.DS_Store
+*.swp
