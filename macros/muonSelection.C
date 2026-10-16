@@ -81,7 +81,7 @@ int muonSelection(const char *fileUrl,
   ROOT::RDF::RNode input = dataFrame;
   if (maxEvents > 0) input = input.Range(maxEvents);
 
-  // Trigger decision stored for every event by the CMS High-Level Trigger.
+  // CMS High-Level Trigger.
   auto triggered = input.Filter("HLT_IsoMu24 || HLT_IsoTkMu24",
                                 "single-muon trigger");
 

@@ -31,7 +31,7 @@ struct Category {
   double sumWeights2 = 0.0;
   double scaleFactor = 0.0;
 };
-
+// Delete leading and trailing whitespace from a string
 std::string Trim(const std::string &input) {
   const auto first = std::find_if_not(input.begin(), input.end(),
                                       [](unsigned char c) { return std::isspace(c); });
@@ -77,15 +77,15 @@ double SumRunsLeaf(TTree *runs, const char *branchName) {
   }
   return sum;
 }
-
+// Compute the normalization factor for a category, given the target luminosity and branching factor
 void Finalize(Category &category, double luminosityPb,
               double branchingFactor) {
   if (category.sumWeights == 0.0 || category.crossSectionPb == 0.0) {
     category.scaleFactor = 0.0;
     return;
   }
-  category.scaleFactor = luminosityPb * category.crossSectionPb *
-                         branchingFactor / category.sumWeights;
+  category.scaleFactor = luminosityPb * category.crossSectionPb / category.sumWeights;
+                         
 }
 
 }  // namespace Normalization

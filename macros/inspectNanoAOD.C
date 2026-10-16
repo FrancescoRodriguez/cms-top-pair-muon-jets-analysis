@@ -44,7 +44,7 @@ double SumLeaf(TTree *tree, const char *branchName) {
   return sum;
 }
 
-
+// write a table of branch availability to the output stream
 void PrintBranchTable(TTree *tree, std::ostream &output) { 
   const std::vector<BranchGroup> groups = { 
       {"Event identifiers", {"run", "luminosityBlock", "event"}}, 

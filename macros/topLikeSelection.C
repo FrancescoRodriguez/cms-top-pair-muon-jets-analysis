@@ -58,7 +58,7 @@ RVec<bool> LooseMuonMask(const RVec<float> &pt, const RVec<float> &eta,
                          const RVec<bool> &looseId) {
   return (pt > kVetoLeptonPtMin) && (abs(eta) < kVetoLeptonAbsEtaMax) && looseId;
 }
-
+// Add a function to veto electrons
 RVec<bool> VetoElectronMask(const RVec<float> &pt, const RVec<float> &eta,
                             const RVec<int> &cutBased) {
   return (pt > kVetoLeptonPtMin) && (abs(eta) < kVetoLeptonAbsEtaMax) &&
@@ -70,7 +70,7 @@ float DeltaPhi(float first, float second) {
   constexpr float pi = 3.14159265358979323846f;
   while (difference > pi) difference -= 2.0f * pi;
   while (difference <= -pi) difference += 2.0f * pi;
-  return difference;
+  return difference; // put the difference in the range [-pi, pi]
 }
 
 RVec<bool> GoodJetMask(const RVec<float> &pt, const RVec<float> &eta,
@@ -98,7 +98,8 @@ bool PassesJetPt35Topology(const RVec<float> &pt, const RVec<float> &btag,
   for (std::size_t index = 0; index < goodMask.size(); ++index)
     if (goodMask[index]) indices.push_back(index);
   if (indices.size() < 4) return false;
-
+  
+// The b-jets are the two jets with the highest b-tagging discriminant.
   std::sort(indices.begin(), indices.end(),
             [&btag](std::size_t first, std::size_t second) {
               return btag[first] > btag[second];

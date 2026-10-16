@@ -59,6 +59,7 @@ RVec<double> ReconstructHadronicTop(const RVec<float> &jetPt,
     if (goodMask[index]) goodIndices.push_back(index);
   if (goodIndices.size() < 4) return result;
 
+  // Sort the good jet indices by descending b tag score.
   std::sort(goodIndices.begin(), goodIndices.end(),
             [&btag](std::size_t first, std::size_t second) {
               return btag[first] > btag[second];
@@ -69,6 +70,7 @@ RVec<double> ReconstructHadronicTop(const RVec<float> &jetPt,
       goodIndices.begin() + 2, goodIndices.end());
   if (wCandidates.size() < 2) return result;
 
+  // Evaluate all possible jet permutations and rank them by a mass based chi2.
   double bestChi2 = std::numeric_limits<double>::infinity();
   for (std::size_t hadronicBPosition = 0;
        hadronicBPosition < bCandidates.size(); ++hadronicBPosition) {
@@ -88,7 +90,7 @@ RVec<double> ReconstructHadronicTop(const RVec<float> &jetPt,
         const PtEtaPhiMVector secondVector(
             jetPt[secondWJet], jetEta[secondWJet],
             jetPhi[secondWJet], jetMass[secondWJet]);
-        const auto wVector = firstVector + secondVector;
+        const auto wVector = firstVector + secondVector; // It is a relavistic sum of two Lorentz vectors
         const auto topVector = wVector + bVector;
 
         const double wPull =
@@ -150,7 +152,7 @@ int reconstructTop(const char *fileUrl,
   ROOT::RDF::RNode input = dataFrame;
   if (maxEvents > 0) input = input.Range(maxEvents);
 
-  // Reuse exactly the Phase-3 selection definitions before reconstructing the
+  // Reuse exactly the Phase III selection definitions before reconstructing the
   // hadronically decaying top quark.
   auto triggered = input.Filter("HLT_IsoMu24 || HLT_IsoTkMu24");
   auto withMuonMasks = triggered
