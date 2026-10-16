@@ -5,11 +5,13 @@ single-muon plus jets final state. The final goal is to measure the top-quark
 pair production cross section and study a differential distribution with an
 unfolding procedure.
 
-The project uses the following conventions:
+## Reference publication
 
-- `W0J`, `W1J`, and `W2J` correspond to `LHE_Njets == 0`, `1`, and `2`;
-- the supplied W+jets cross sections already include the leptonic W decay;
-- no additional W branching-ratio factor is applied.
+This analysis is based on the CMS measurement described in the following publication:
+
+**Reference DOI:** [10.1103/PhysRevD.95.092001](https://doi.org/10.1103/PhysRevD.95.092001)
+
+The reference publication provides the physics methodology for the event selection, top-quark reconstruction, cross-section measurement, and unfolding procedure. The implementation in this repository adapts these methods to the available CMS 2016 Open Data and includes simplifications documented in the sections below.
 
 ## Phase 1: NanoAOD inspection
 
@@ -49,7 +51,7 @@ To inspect every configured sample using 1000 events per file:
 
 ## Phase 2: muon selection
 
-The muon selection follows the offline requirements of the reference CMS
+The muon selection follows the offline requirements of the reference
 analysis as closely as the 2016 NanoAOD content permits:
 
 - `HLT_IsoMu24 || HLT_IsoTkMu24` single-muon trigger;
@@ -70,7 +72,7 @@ cut flows, ROOT histograms, and PNG diagnostic figures are written under
 
 ## Phase 3: top-like event selection
 
-The top-like selection extends Phase 2 with the detector-level requirements
+The top-like selection extends Phase 2 with the detector level requirements
 used in the reference article:
 
 - veto additional loose electrons with `pt > 15 GeV` and `abs(eta) < 2.4`;
@@ -100,13 +102,12 @@ eventWeight = genWeight * luminosity * crossSection / sumGenWeights
 ```
 
 The target luminosity and effective cross sections are stored in
-`config/normalization.cfg`. Cross sections are in pb and the luminosity is in
-pb^-1. The current target is the combined 2016 G+H luminosity, 16146 pb^-1.
+`config/normalization.cfg`.  The current target is the combined 2016 G+H luminosity, 16393 pb^-1.
 
 For W+jets, `sumGenWeights` and the normalization factor are calculated
 independently for `LHE_Njets == 0`, `1`, and `2`. Events with more than two LHE
 partons are reported but receive no normalization because no cross section was
-provided for them. No additional leptonic branching factor is applied.
+provided for them.
 
 Process every event in the representative Phase-4 files with:
 
@@ -136,7 +137,7 @@ chi2 = ((m_jj - 80.4 GeV) / 10 GeV)^2
      + ((m_jjb - 172.5 GeV) / 20 GeV)^2.
 ```
 
-The 10 and 20 GeV denominators are detector-resolution parameters used to rank
+The 10 and 20 GeV denominators are detector resolution parameters used to rank
 permutations, not the physical W and top widths. No chi2 cut is applied yet.
 
 Run the reconstruction with:
@@ -212,9 +213,9 @@ the full luminosity, since that ratio would have no physical meaning. The curren
 background model contains W+jets and DY only; single-top and multijet samples
 were not supplied, so the eventual result remains a simplified measurement.
 
-## Optional Phase 7: hadronic-top pT unfolding
+## Unfolding: hadronic-top pT unfolding
 
-`macros/unfoldTopPt.C` constructs a five-bin response matrix between generated
+`macros/unfoldTopPt.C` constructs a five bin response matrix between generated
 and reconstructed hadronic-top transverse momentum. It implements four
 iterations of Bayesian (D'Agostini) unfolding, subtracts W+jets and DY, and
 performs a closure test using separate halves of the TT simulation.
@@ -232,7 +233,7 @@ root -l -b -q 'macros/unfoldTopPt.C(2,2,4,5000)'
 ```
 
 Outputs are saved under `output/unfolding/`. The reported uncertainties are
-approximate statistical uncertainties; this remains a simplified educational
+approximate statistical uncertainties; this remains a simplified
 unfolding rather than the complete procedure used by the publication.
 
 For the full-data production, use the reliable file-by-file workflow:
