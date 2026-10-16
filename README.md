@@ -1,7 +1,7 @@
 # Top-pair cross-section measurement with CMS Open Data
 
-This repository contains a ROOT-based analysis of CMS 2016 Open Data in the
-single-muon plus jets final state. The final goal is to measure the top-quark
+This repository contains a ROOT based analysis of CMS 2016 Open Data in the
+single-muon plus jets final state. The final goal is to measure the top quark
 pair production cross section and study a differential distribution with an
 unfolding procedure.
 
@@ -11,7 +11,7 @@ This analysis is based on the CMS measurement described in the following publica
 
 **Reference DOI:** [10.1103/PhysRevD.95.092001](https://doi.org/10.1103/PhysRevD.95.092001)
 
-The reference publication provides the physics methodology for the event selection, top-quark reconstruction, cross-section measurement, and unfolding procedure. The implementation in this repository adapts these methods to the available CMS 2016 Open Data and includes simplifications documented in the sections below.
+The reference publication provides the physics methodology for the event selection, top-quark reconstruction, cross section measurement, and unfolding procedure. The implementation in this repository adapts these methods to the available CMS 2016 Open Data and includes simplifications documented in the sections below.
 
 ## Phase 1: NanoAOD inspection
 
