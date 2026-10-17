@@ -1,7 +1,7 @@
 # Top-pair cross-section measurement with CMS Open Data
 
 This repository contains a ROOT based analysis of CMS 2016 Open Data in the
-single-muon plus jets final state. The final goal is to measure the top quark
+single muon plus jets final state. The final goal is to measure the top quark
 pair production cross section and study a differential distribution with an
 unfolding procedure.
 
@@ -60,7 +60,7 @@ analysis as closely as the 2016 NanoAOD content permits:
 - track relative isolation `Muon_tkRelIso < 0.05`;
 - veto of any additional loose muon with `pt > 15 GeV` and `abs(eta) < 2.4`.
 
-Run the Phase-2 selection on one file per configured sample with:
+Run the Phase 2 selection on one file per configured sample with:
 
 ```bash
 ./scripts/run_phase2.sh 100000
@@ -84,7 +84,7 @@ used in the reference article:
 - require at least one of the two highest-b-tag jets and one remaining jet to
   have `pt > 35 GeV`.
 
-The DeepJet thresholds are the UL2016 post-VFP working points appropriate for
+The DeepJet thresholds are the UL2016 post VFP working points appropriate for
 Run G/H. Run the selection with:
 
 ```bash
@@ -138,7 +138,7 @@ chi2 = ((m_jj - 80.4 GeV) / 10 GeV)^2
 ```
 
 The 10 and 20 GeV denominators are detector resolution parameters used to rank
-permutations, not the physical W and top widths. No chi2 cut is applied yet.
+permutations, not the physical W and top widths. No chi2 cut is applied.
 
 Run the reconstruction with:
 
@@ -193,7 +193,7 @@ It processes one CERN file at a time and saves a small checkpoint under
 `output/checkpoints/`. Every failed file is attempted three times. Running the
 same command again skips completed files, so a network timeout does not restart
 the analysis from the beginning. When all checkpoints exist, ROOT combines
-them and writes the same final Phase-6 report.
+them and writes the same final Phase 6 report.
 
 For the faster exam-project configuration, use all collision data but only the
 first 10 files from each Monte Carlo sample:
@@ -216,7 +216,7 @@ were not supplied, so the eventual result remains a simplified measurement.
 ## Unfolding: hadronic-top pT unfolding
 
 `macros/unfoldTopPt.C` constructs a five bin response matrix between generated
-and reconstructed hadronic-top transverse momentum. It implements four
+and reconstructed hadronic top transverse momentum. It implements four
 iterations of Bayesian (D'Agostini) unfolding, subtracts W+jets and DY, and
 performs a closure test using separate halves of the TT simulation.
 
@@ -245,5 +245,5 @@ For the full-data production, use the reliable file-by-file workflow:
 `processUnfoldingFile.C` writes one small ROOT checkpoint per input file under
 `output/unfolding_checkpoints/`. `combineUnfolding.C` combines all 152 data
 checkpoints and the requested MC subset, then performs background subtraction,
-closure, unfolding, and the differential cross-section calculation. Rerunning
+closure, unfolding, and the differential cross section calculation. Rerunning
 the script skips completed files.
